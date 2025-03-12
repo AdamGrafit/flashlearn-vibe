@@ -2,7 +2,7 @@
 export interface FlashcardQuestion {
   id: string;
   question: string;
-  answer: React.ReactNode;
+  answer: string;
   known: boolean;
 }
 

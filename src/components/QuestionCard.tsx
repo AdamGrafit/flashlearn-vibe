@@ -53,9 +53,10 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, isSelected }) => 
       <CardContent className="p-4 pt-0">
         <h3 className="text-lg font-semibold mb-2">{question.question}</h3>
         {showAnswer && (
-          <div className="mt-4 p-3 bg-muted rounded-md">
-            {question.answer}
-          </div>
+          <div 
+            className="mt-4 p-3 bg-muted rounded-md"
+            dangerouslySetInnerHTML={{ __html: question.answer }}
+          />
         )}
       </CardContent>
     </Card>

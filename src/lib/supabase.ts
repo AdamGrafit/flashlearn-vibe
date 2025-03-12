@@ -1,6 +1,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { FlashcardQuestion } from '@/types';
+import React from 'react';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -25,8 +26,8 @@ export const convertToFlashcardQuestion = (card: SupabaseFlashcard): FlashcardQu
   return {
     id: card.id,
     question: card.question,
-    // Convert the answer string to a React node
-    answer: <div dangerouslySetInnerHTML={{ __html: card.answer }} />,
+    // We'll create the React element in a proper TSX file instead
+    answer: card.answer,
     known: card.known
   };
 };

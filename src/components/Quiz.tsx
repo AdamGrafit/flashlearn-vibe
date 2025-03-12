@@ -89,9 +89,10 @@ const Quiz: React.FC = () => {
         
         <CardContent className="p-6">
           {showAnswer ? (
-            <div className="bg-muted p-4 rounded-md mt-4">
-              {currentQuestion.answer}
-            </div>
+            <div 
+              className="bg-muted p-4 rounded-md mt-4"
+              dangerouslySetInnerHTML={{ __html: currentQuestion.answer }}
+            />
           ) : (
             <div className="flex justify-center p-10">
               <Button 
