@@ -2,17 +2,11 @@
 import { createClient } from '@supabase/supabase-js';
 import { FlashcardQuestion } from '@/types';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// Use direct values instead of environment variables
+const supabaseUrl = 'https://kggfvmnwaoxoxpomqzpi.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnZ2Z2bW53YW94b3hwb21xenBpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE4MDU5NDgsImV4cCI6MjA1NzM4MTk0OH0.aleZLYnixctO1CXGrimvbSQ8M8YKqfQ7IDh9c01HjlU';
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('Supabase URL and Anon Key must be set in environment variables');
-}
-
-export const supabase = createClient(
-  supabaseUrl || '',
-  supabaseAnonKey || ''
-);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export interface SupabaseFlashcard {
   id: string;
