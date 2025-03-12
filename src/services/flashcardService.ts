@@ -1,11 +1,18 @@
 
-import { supabase, SupabaseFlashcard, convertToFlashcardQuestion } from '@/lib/supabase';
+import { supabase, SupabaseFlashcard, convertToFlashcardQuestion, isSupabaseConfigured, getMockFlashcards } from '@/lib/supabase';
 import { FlashcardQuestion } from '@/types';
 
 const TABLE_NAME = 'NikolaMagisterTable';
 
 export const fetchFlashcards = async (): Promise<FlashcardQuestion[]> => {
-  const { data, error } = await supabase
+  // If Supabase is not configured, return mock data
+  if (!isSupabaseConfigured) {
+    // Simulate network delay for consistency
+    await new Promise(resolve => setTimeout(resolve, 500));
+    return getMockFlashcards();
+  }
+
+  const { data, error } = await supabase!
     .from(TABLE_NAME)
     .select('*');
 
@@ -18,7 +25,13 @@ export const fetchFlashcards = async (): Promise<FlashcardQuestion[]> => {
 };
 
 export const updateFlashcardKnownStatus = async (id: string, known: boolean): Promise<void> => {
-  const { error } = await supabase
+  // If Supabase is not configured, just log the action
+  if (!isSupabaseConfigured) {
+    console.log(`Mock update: Flashcard ${id} marked as ${known ? 'known' : 'unknown'}`);
+    return;
+  }
+
+  const { error } = await supabase!
     .from(TABLE_NAME)
     .update({ known })
     .eq('id', id);
@@ -30,7 +43,13 @@ export const updateFlashcardKnownStatus = async (id: string, known: boolean): Pr
 };
 
 export const resetAllFlashcardsKnownStatus = async (): Promise<void> => {
-  const { error } = await supabase
+  // If Supabase is not configured, just log the action
+  if (!isSupabaseConfigured) {
+    console.log('Mock reset: All flashcards reset to unknown');
+    return;
+  }
+
+  const { error } = await supabase!
     .from(TABLE_NAME)
     .update({ known: false })
     .neq('id', ''); // Update all records
